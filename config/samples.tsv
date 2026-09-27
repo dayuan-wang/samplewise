@@ -1,0 +1,3 @@
+sample_id	path	age	sex	sepsis	batch
+m01	data/m01/filtered_feature_bc_matrix.h5	young	male	naive	b1
+m02	data/m02/filtered_feature_bc_matrix.h5	young	male	sepsis	b1

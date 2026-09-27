@@ -1,0 +1,17 @@
+sample_id	age	sex	sepsis	batch
+NYF1	young	female	naive	batch1
+24-N-YF1	young	female	naive	batch3
+S7YF1	young	female	sepsis	batch1
+YFB6S7B	young	female	sepsis	batch4
+NYM1	young	male	naive	batch1
+24-N-YM1	young	male	naive	batch3
+S7YM1	young	male	sepsis	batch1
+24-S-YM1	young	male	sepsis	batch3
+0606-N-OF1	old	female	naive	batch2
+24-N-OF1	old	female	naive	batch3
+0606-S-OF1	old	female	sepsis	batch2
+S-082923-OF1	old	female	sepsis	batch2
+042623NOM	old	male	naive	batch2
+24-N-OM1	old	male	naive	batch3
+042623S7OM	old	male	sepsis	batch2
+0614S7-OM1	old	male	sepsis	batch2

@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use samplewise, please cite it as below."
+title: "samplewise: sample-level statistical inference for derived single-cell features"
+authors:
+  - family-names: Wang
+    given-names: Dayuan
+    affiliation: "Department of Biostatistics, University of Florida"
+version: 0.0.0.9000
+date-released: 2026-09-27
+license: GPL-3.0
+repository-code: "https://github.com/dayuan-wang/samplewise"

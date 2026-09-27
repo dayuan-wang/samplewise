@@ -1,0 +1,10 @@
+^\.Rproj\.user$
+^.*\.Rproj$
+^\.github$
+^workflow$
+^config$
+^docs$
+^LICENSE$
+^CITATION\.cff$
+^\.gitignore$
+^\.DS_Store$

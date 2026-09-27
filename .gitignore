@@ -1,0 +1,27 @@
+# R
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+/doc/
+/Meta/
+# workflow outputs
+/results/
+/resources/
+/.snakemake/
+/logs/
+# Dropbox and macOS artefacts (the local clone lives inside Dropbox)
+.DS_Store
+Icon?
+*conflicted copy*
+.dropbox
+.dropbox.attr
+# data never enters the repository
+*.rds
+*.h5
+*.h5ad
+*.h5seurat
+*.mtx
+*.mtx.gz
+*.loom

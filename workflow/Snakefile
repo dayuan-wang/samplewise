@@ -1,0 +1,38 @@
+# samplewise workflow - skeleton (v0, 2026-09-27)
+#
+# The rule graph is wired and named; the scripts under workflow/scripts/ are
+# being ported from the sepsis study (see docs/design.md, section "Modules").
+# Until a script exists its rule fails with a clear message, so `snakemake -n`
+# shows the plan and nothing runs by accident.
+#
+# Two stages, one human checkpoint:
+#   A  import -> qc -> integrate -> cluster -> draft_annotation      (automatic)
+#      ... a person turns draft_annotation.tsv into the locked file ...
+#   B  apply_annotation -> features -> inference -> report          (automatic)
+
+from snakemake.utils import min_version
+import pandas as pd
+
+min_version("8.0")
+
+configfile: "config/config.yaml"
+
+samples = pd.read_csv(config["samples"], sep="\t", dtype=str).set_index("sample_id", drop=False)
+SAMPLES = samples.index.tolist()
+OUT = config.get("outdir", "results")
+
+include: "rules/preprocess.smk"
+include: "rules/annotate.smk"
+include: "rules/features.smk"
+include: "rules/inference.smk"
+
+rule all:
+    input:
+        f"{OUT}/report/results.xlsx",
+        f"{OUT}/report/index.html",
+
+rule stage_a:
+    """Everything up to the draft annotation. Run this first, then annotate."""
+    input:
+        f"{OUT}/05_annotation/draft_annotation.tsv",
+        f"{OUT}/05_annotation/draft_report.html",

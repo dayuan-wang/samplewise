@@ -1,0 +1,29 @@
+# R environment for every rule. Untested as of 2026-09-27; CellChat and
+# samplewise are not on conda and are installed by r.post-deploy.sh.
+name: samplewise-r
+channels:
+  - conda-forge
+  - bioconda
+  - nodefaults
+dependencies:
+  - r-base =4.3
+  - r-seurat >=5.0
+  - r-harmony
+  - r-matrix
+  - r-hdf5r
+  - r-ggplot2
+  - r-openxlsx
+  - r-rmarkdown
+  - r-knitr
+  - r-remotes
+  - r-nmf
+  - r-circlize
+  - r-igraph
+  - bioconductor-deseq2
+  - bioconductor-edger
+  - bioconductor-limma
+  - bioconductor-clusterprofiler
+  - bioconductor-msigdb
+  - bioconductor-complexheatmap
+  - bioconductor-biocparallel
+  - pandoc

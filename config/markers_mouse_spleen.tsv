@@ -1,0 +1,7 @@
+cell_type	markers
+B	Cd19,Ms4a1,Cd79a,Cd79b
+Plasma	Jchain,Mzb1,Sdc1
+CD4 T	Cd3e,Cd4
+CD8 T	Cd3e,Cd8a
+Treg	Foxp3,Il2ra,Ctla4,Ikzf2
+NK	Nkg7,Klrb1c,Prf1,Cxcr6

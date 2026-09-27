@@ -1,0 +1,5 @@
+name	coefficients
+sepsis_in_young_males	sepsissepsis=1
+sepsis_in_old_males	sepsissepsis=1,ageold:sepsissepsis=1
+age_x_sepsis	ageold:sepsissepsis=1
+sex_x_sepsis	sexfemale:sepsissepsis=1

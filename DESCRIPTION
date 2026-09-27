@@ -1,0 +1,32 @@
+Package: samplewise
+Title: Sample-Level Statistical Inference for Derived Single-Cell Features
+Version: 0.0.0.9000
+Authors@R: 
+    person("Dayuan", "Wang", , "dayuan.wang.stats@gmail.com", role = c("aut", "cre"))
+Description: One design formula across cell-type composition, pseudobulk
+    differential expression, cell-cell communication strength and other
+    features derived from single-cell RNA-seq, with the biological sample
+    (mouse, donor, patient) as the unit of inference. Provides a per-sample
+    long-table contract, builders that turn the outputs of standard tools
+    into that contract, one fitting layer with explicit eligibility rules
+    and Benjamini-Hochberg correction per feature family and contrast, and
+    one report. Extracted from the replicate-aware framework of Wang (2026),
+    Chapter 3.
+License: GPL-3
+URL: https://github.com/dayuan-wang/samplewise
+BugReports: https://github.com/dayuan-wang/samplewise/issues
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Depends: 
+    R (>= 4.3)
+Imports: 
+    methods,
+    stats,
+    tools,
+    utils
+Suggests: 
+    ggplot2,
+    openxlsx,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

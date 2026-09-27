@@ -1,0 +1,89 @@
+# samplewise workflow configuration - every knob the sepsis study had hard
+# coded, in one place. Values shown are the sepsis study's, so a run on the
+# 16-mouse fixture reproduces that analysis; change them for other data.
+
+samples: config/samples.tsv        # sample sheet, see config/samples.tsv
+outdir: results
+species: mouse                     # mouse | human. Switches the CellChat
+                                   # database, MSigDB collections and homology
+                                   # mapping together.
+
+input:
+  # cellranger_h5  : one filtered_feature_bc_matrix.h5 per sample (path column)
+  # mtx            : one 10x MTX directory per sample (path column)
+  # merged_object  : one Seurat .rds holding every cell; `path` is the same
+  #                  for every row and sample_id must match a metadata column
+  # annotated_object : as merged_object, already annotated; stage A is skipped
+  mode: cellranger_h5
+  sample_column: orig.ident        # for merged_object / annotated_object
+  celltype_column: null            # for annotated_object
+
+qc:
+  min_genes: 200
+  max_genes: 6000                  # the study's doublet proxy
+  max_mito_pct: 10
+  doublets: none                   # none | scDblFinder (planned)
+
+integration:
+  n_hvg: 2000
+  n_pcs: 50
+  batch_var: sample_id             # what Harmony aligns; use a batch column if runs are batched
+  seed: 42
+
+clustering:
+  dims: 30                         # Harmony dims fed to the SNN graph
+  k: 30
+  resolution: 0.8
+  algorithm: louvain
+
+annotation:
+  marker_file: config/markers_mouse_spleen.tsv    # cell_type <TAB> comma-separated markers
+  reference: null                  # planned: a SingleR / celltypist reference
+  locked: config/annotation_locked.tsv            # cluster <TAB> cell_type, written by a person
+  accept_draft: false              # true only for fixtures with a known annotation
+  compartments:                    # named denominators for composition
+    all: null
+    lymphocytes: [B, Plasma, CD4 T, CD8 T, Treg, NK]
+
+design:
+  formula: "~ age * sepsis + sex * sepsis"
+  reference_levels:                # first level = reference
+    age: [young, old]
+    sex: [male, female]
+    sepsis: [naive, sepsis]
+  contrasts: config/contrasts.tsv  # null = every non-intercept coefficient
+
+inference:
+  min_per_group: 3                 # estimable samples in every factor level
+  min_detected: 5                  # samples with value > 0
+  fdr_within: [feature_type, term]
+  transform:                       # per feature_type; identity when absent
+    communication: sqrt
+  sensitivity:
+    composition_propeller: true    # speckle::propeller on the same design
+    communication_covariate_log_cells: true
+
+modules:
+  composition:
+    min_denominator: 20
+  expression:
+    engine: DESeq2                 # DESeq2 | edgeR | dreamlet
+    min_cells: 10                  # pseudobulks with fewer cells are dropped
+    cell_types: null               # null = every annotated type
+  gsea:
+    collections: [GO:BP]
+    rank_by: statistic
+  communication:
+    database: full                 # CellChatDB subset: full | secreted
+    method: triMean
+    nboot: 100
+    min_cells: 10
+    levels: [pathway_edge, edge, pathway_total]
+    senders: null                  # null = all cell types
+    receivers: null
+
+resources:
+  integrate_mem_mb: 64000
+  integrate_minutes: 240
+  cellchat_mem_mb: 24000
+  cellchat_minutes: 90
